@@ -24,6 +24,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
+import android.view.inputmethod.InputMethodManager
 
 class AddictionsFragment : Fragment() {
     private lateinit var adapter: AddictionAdapter
@@ -86,6 +87,9 @@ class AddictionsFragment : Fragment() {
                     db.addictionDao().insert(addiction)
                 }
                 editText.text.clear()
+                // Hide keyboard
+                val imm = requireContext().getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(editText.windowToken, 0)
                 loadAddictions()
             }
         }
